@@ -6,9 +6,32 @@
           v-for="item in cart"
           :key="item.id"
           href="#"
-          
           class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
         >
+          <div class="col-3">
+            <label class="sr-only" for="inlineFormInputName2">Quantity</label>
+            <input
+              type="number"
+              v-model="quantity"
+              class="form-control mb-2 mr-sm-2"
+            />
+            <button
+              v-if="!isInCardProp"
+              @click.stop="addCart({ product, quantity })"
+              type="button"
+              class="btn btn-primary btn-lg btn-block col-9"
+            >
+              ADD
+            </button>
+            <button
+              v-else
+              @click.stop="removeCart(product.id)"
+              type="button"
+              class="btn btn-primary btn-lg btn-block col-9"
+            >
+              REMOVE
+            </button>
+          </div>
           <img :src="item.imageUrl" alt height="60" width="60" />
           <p class="h4">{{ item.name }}</p>
           <div class="row">
@@ -39,25 +62,32 @@
           @click="checkout()"
           type="button"
           class="btn btn-primary btn-lg btn-block mt-4"
-        >Checkout</button>
+        >
+          Checkout
+        </button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters, mapActions, mapState } from "vuex";
 export default {
   name: "Cart",
   data() {
     return {
       totalPrice: 0,
+      isInCardProp: false,
     };
   },
   computed: {
-    ...mapGetters("product", ["cart"])
+    ...mapGetters("product", ["cart"]),
+    ...mapGetters("product", ["product"]),
+    ...mapState("product", ["cart"]),
   },
+  
   methods: {
+    
     ...mapActions("product", ["removeCart"]),
     calcPrice() {
       this.cart.forEach((element) => {
@@ -72,6 +102,29 @@ export default {
         vm.$router.push("/");
       }, 2000);
     },
+    isInCart(id) {
+      for (let index = 0; index < this.cart.length; index++) {
+        const element = this.cart[index];
+        if (element.id === id) {
+          return true;
+        }
+      }
+      return false;
+    },
+  },
+  watch: {
+    product(val) {
+      this.isInCardProp = this.isInCart(val.id);
+    },
+    cart() {
+      this.isInCardProp = this.isInCart(this.product.id);
+    },
+    quantity(val) {
+      if (val <= 0) {
+        this.quantity = 1;
+      }
+    },
+
   },
   mounted() {
     this.calcPrice();
