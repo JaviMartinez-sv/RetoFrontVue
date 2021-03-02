@@ -57,7 +57,8 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("product", ["cart"])
+    ...mapGetters("product", ["cart"]),
+    ...mapGetters("product", ["product"])
     
   },
   components: { Add },
@@ -79,6 +80,9 @@ export default {
   },
   mounted() {
     this.calcPrice();
+    
+    this.productDetails(this.$route.params.idProduct);
+  
   },
 };
 </script>
