@@ -6,6 +6,7 @@
           v-for="item in cart"
           :key="item.id"
           href="#"
+          
           class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
         >
           <img :src="item.imageUrl" alt height="60" width="60" />
