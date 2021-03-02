@@ -11,7 +11,7 @@
         <p class="lead text-justify">{{ product.content }}</p>
         <div>
           <p class="h3">Price</p>
-          <p class="h2">${{ product.price }}</p>
+          <p class="h2">{{ product.price }}€</p>
         </div>
         <AddToCart :product="product" />
       </div>
@@ -51,5 +51,10 @@ export default {
 }
 .card * {
   max-height: 85vh;
+}
+.btn {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 7em;
 }
 </style>

@@ -6,13 +6,18 @@
       <h5 class="card-title text-center">{{ product.content }}</h5>
 
       <div class="row">
+        <div>
         <router-link
           type="button"
           class="btn btn-primary btn-lg"
           :to="'/details/' + product.id"
         >Details</router-link>
+        </div>
+        <div>
+           <b-button class="btn btn-primary btn-lg">Add
+          </b-button>
+        </div>
       </div>
-
     </div>
   </div>
 </template>
@@ -33,6 +38,8 @@ export default {
   font-weight: bold;
   background: blueviolet;
   border: black;
-  margin: 10px;
+  margin-left:2.1em;
+  margin-right: 2.1em;
+ padding: auto;
 }
 </style>
