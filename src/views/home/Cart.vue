@@ -14,6 +14,7 @@
             <div class="mr-2">
               <p>Unique Price</p>
               <p>${{ item.price }}</p>
+              <Add :product="product" />
             </div>
             <div class="mr-2">
               <p>Total Price</p>
@@ -24,6 +25,7 @@
               <p>{{ item.quantity }}</p>
             </div>
           </div>
+          
         </a>
         <div
           class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
@@ -46,6 +48,7 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
+import Add from "../../components/Cart/Add"
 export default {
   name: "Cart",
   data() {
@@ -55,7 +58,9 @@ export default {
   },
   computed: {
     ...mapGetters("product", ["cart"])
+    
   },
+  components: { Add },
   methods: {
     ...mapActions("product", ["removeCart"]),
     calcPrice() {
